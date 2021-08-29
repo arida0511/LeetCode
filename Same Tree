@@ -1,0 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+
+void func(struct TreeNode* cur, struct TreeNode* com, bool *flag){
+    if(!cur&&!com) return;
+    else{
+        if((!cur&&com)||(cur&&!com)){
+            *flag = false;
+            return;
+        }
+        else{
+            if(cur->val != com->val){
+                *flag = false;
+                return;
+            }
+            else{
+                func(cur->left, com->left, flag);
+                func(cur->right, com->right, flag);
+            }
+        }            
+    }
+}
+
+bool isSameTree(struct TreeNode* p, struct TreeNode* q){
+    bool flag = true;
+    func(p,q,&flag);
+    return flag;
+}
